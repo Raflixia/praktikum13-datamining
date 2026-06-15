@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import joblib
 import numpy as np
@@ -97,8 +98,9 @@ st.markdown("""
 # ── Load artifacts ───────────────────────────────────────────────────────────
 @st.cache_resource
 def load_artifacts():
-    model = joblib.load('model.pkl')
-    district_mean_price = joblib.load('district_mean_price.pkl')
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    model = joblib.load(os.path.join(base_dir, 'model.pkl'))
+    district_mean_price = joblib.load(os.path.join(base_dir, 'district_mean_price.pkl'))
     return model, district_mean_price
 
 model, district_mean_price = load_artifacts()
